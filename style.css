@@ -1,0 +1,184 @@
+:root {
+    --bg-dark: #0f172a;
+    --board-bg: rgba(30, 41, 59, 0.7);
+    --cell-bg: rgba(15, 23, 42, 0.6);
+    --cell-hover: rgba(51, 65, 85, 0.8);
+    --text-color: #f8fafc;
+    --primary-x: #38bdf8;
+    --primary-o: #f43f5e;
+    --glow-x: rgba(56, 189, 248, 0.5);
+    --glow-o: rgba(244, 63, 94, 0.5);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.status {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.status.x-turn {
+    color: var(--primary-x);
+    box-shadow: 0 0 15px var(--glow-x);
+}
+
+.status.o-turn {
+    color: var(--primary-o);
+    box-shadow: 0 0 15px var(--glow-o);
+}
+
+.status.win {
+    color: #10b981;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+.status.draw {
+    color: #fbbf24;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: var(--board-bg);
+    padding: 12px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: var(--cell-bg);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.02);
+}
+
+.cell:hover {
+    background: var(--cell-hover);
+    transform: translateY(-2px);
+}
+
+.cell.x {
+    color: var(--primary-x);
+    text-shadow: 0 0 20px var(--glow-x);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell.o {
+    color: var(--primary-o);
+    text-shadow: 0 0 20px var(--glow-o);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell.winner {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: #0f172a;
+    background: #e2e8f0;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(226, 232, 240, 0.2);
+}
+
+.btn:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 480px) {
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+    
+    .container {
+        padding: 1.5rem;
+    }
+}
